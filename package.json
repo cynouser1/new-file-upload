@@ -1,35 +1,27 @@
 {
   "name": "new-file-upload",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "concurrently \"npm --prefix apps/frontend run dev\" \"npm --prefix apps/backend run dev\"",
+    "build": "npm --prefix apps/frontend run build",
+    "start": "npm run dev",
+    "start:frontend": "npm --prefix apps/frontend run dev",
+    "start:backend": "npm --prefix apps/backend run dev"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cynouser1/new-file-upload.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cynouser1/new-file-upload/issues"
+  },
+  "homepage": "https://github.com/cynouser1/new-file-upload#readme",
   "dependencies": {
-    "@heroicons/react": "^2.2.0",
-    "@tailwindcss/vite": "^4.1.11",
-    "autoprefixer": "^10.4.21",
-    "axios": "^1.10.0",
-    "postcss": "^8.5.6",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-dropzone": "^14.3.8",
-    "tailwindcss": "^4.1.11"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.30.1",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.6.0",
-    "concurrently": "^8.2.2",
-    "eslint": "^9.30.1",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.3.0",
-    "vite": "^7.0.4"
+    "concurrently": "^9.2.0"
   }
 }
