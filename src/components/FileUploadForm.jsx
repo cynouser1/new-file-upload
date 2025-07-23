@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { CloudArrowUpIcon } from '@heroicons/react/24/outline';
+import { submitForm } from '../api/api';
 
 const FileUploadForm = () => {
   const [formData, setFormData] = useState({
@@ -50,16 +51,16 @@ const FileUploadForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const formDataToSend = new FormData();
     formDataToSend.append('name', formData.name);
     formDataToSend.append('email', formData.email);
     formDataToSend.append('description', formData.description);
-    
+
     if (formData.singleImage) {
       formDataToSend.append('singleImage', formData.singleImage);
     }
-    
+
     formData.multipleImages.forEach((file, index) => {
       formDataToSend.append(`multipleImages`, file);
     });
@@ -71,14 +72,18 @@ const FileUploadForm = () => {
       singleImage: formData.singleImage?.name,
       multipleImages: formData.multipleImages.map(file => file.name)
     });
-
+    console.log("formDataToSend", formDataToSend);
+    // return;
     try {
-      const response = await fetch('http://localhost:5200/api/upload', {
-        method: 'POST',
-        body: formDataToSend,
-      });
-      const data = await response.json();
-      console.log('Response:', data);
+      const response = await submitForm(formDataToSend);
+      // const response = await fetch('http://localhost:5200/api/submit', {
+      //   method: 'POST',
+      //   body: formDataToSend,
+      // });
+      // const data = await response.json();
+      const data = response.data;
+      console.log('data:', data);
+      // console.log('Response:', response);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -87,7 +92,7 @@ const FileUploadForm = () => {
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">File Upload Form</h2>
-      
+
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">Name</label>
